@@ -1,6 +1,10 @@
 # ArtStyleClassifier
 Este proyecto tiene como objetivo desarrollar un modelo de aprendizaje automático para identificar y clasificar estilos artísticos en ilustraciones y retratos. El enfoque principal es identificar el estilo particular de un artista (**@avogado6**) a través de ilustraciones donde haya personas.
 
+## Información del Alumno
+- **Nombre:** Ana Karen López Baltazar
+- **Matrícula:** A01707750
+
 ## Conjunto de datos
 ### Origen del Conjunto de Datos
 El conjunto de datos utilizado en este proyecto proviene de tres fuentes principales:
