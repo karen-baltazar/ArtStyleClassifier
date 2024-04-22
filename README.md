@@ -38,3 +38,22 @@ El modelo se evaluará utilizando las siguientes métricas:
 - **Precision**: Proporción de verdaderos positivos sobre el total de predicciones positivas.
 - **Recall**: Proporción de verdaderos positivos sobre el total de positivos reales.
 - **F1 Score**: Media armónica entre precisión y recall.
+
+## Resultados de la Evaluación
+A continuación, se presentan los resultados obtenidos al evaluar el modelo en el conjunto de prueba:
+
+- **Matriz de Confusión**
+
+<img src="results/test_confusion_matrix.png" width="500" height="400">
+
+- **Informe de Clasificación**
+
+<img src="results/test_report.PNG" width="500" height="200">
+
+- **Predicciones**
+
+<img src="results/test_predictions.png" width="700" height="500">
+
+- **Interpretación**
+
+El modelo logra una precisión del 53% en identificar imágenes del artista y del 48% para otras imágenes de artistas. Sin embargo, su capacidad para identificar correctamente imágenes de otros artistas es limitada (recall del 24%) [debilidad en su capacidad de generalización y diferenciación entre estilos artísticos]. Por tanto, el modelo necesita mejoras para equilibrar su capacidad de identificar correctamente tanto imágenes del artista como de otros artistas.
