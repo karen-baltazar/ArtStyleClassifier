@@ -17,7 +17,7 @@ El conjunto de datos utilizado en este proyecto proviene de tres fuentes princip
 Las imágenes seleccionadas para este proyecto se centran en ilustraciones de personas realizadas por el artista principal. Se han incluido imágenes que representan diferentes ángulos y perspectivas de las personas, incluyendo vistas de frente, de lado y parcialmente ocultas.
 
 ### División del Conjunto de Datos
-El conjunto de datos se dividió en conjuntos de entrenamiento y prueba de manera aleatoria. Se asignó el 80% de las imágenes para el conjunto de entrenamiento y el 20% restante para el conjunto de prueba, asegurando una distribución equitativa de las imágenes entre ambos conjuntos.
+El conjunto de datos se dividió en conjuntos de entrenamiento y prueba de manera aleatoria. Se asignó el 80% de las imágenes para el conjunto de entrenamiento (del cual a su vez se utilizó el 20% para la validación del modelo) y el 20% restante para el conjunto de prueba, asegurando una distribución equitativa de las imágenes entre ambos conjuntos.
 
 - Conjunto de Entrenamiento: 416 imágenes
 - Conjunto de Validación: 104 imágenes
