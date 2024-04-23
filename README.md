@@ -40,7 +40,8 @@ El modelo se evaluará utilizando las siguientes métricas:
 - **F1 Score**: Media armónica entre precisión y recall.
 
 ## Resultados de la Evaluación
-A continuación, se presentan los resultados obtenidos al evaluar de forma inicial el modelo en el conjunto de prueba:
+### Evaluación inicial
+A continuación, se presentan los resultados obtenidos al evaluar de el modelo en el conjunto de prueba:
 
 - **Matriz de Confusión**
 
@@ -56,8 +57,7 @@ A continuación, se presentan los resultados obtenidos al evaluar de forma inici
 
 - **Loss y accuracy**
 
-<img src="results/train_loss_acc.png" width="700" height="500">
-<img src="results/test_loss_acc.png" width="700" height="500">
+<img src="results/test_loss_acc.PNG" width="650" height="40">
 
 - **Interpretación**
 
