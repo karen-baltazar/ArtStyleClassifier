@@ -64,3 +64,7 @@ A continuación, se presentan los resultados obtenidos al evaluar de el modelo e
 - **Interpretación**
 
 El modelo logra una precisión del 53% en identificar imágenes del artista y del 48% para otras imágenes de artistas. Sin embargo, su capacidad para identificar correctamente imágenes de otros artistas es limitada (recall del 24%) [debilidad en su capacidad de generalización y diferenciación entre estilos artísticos]. Por tanto, el modelo necesita mejoras para equilibrar su capacidad de identificar correctamente tanto imágenes del artista como de otros artistas.
+
+### Refinamiento del Modelo
+Después de una evaluación inicial del modelo, se identificó que las capas del modelo preentrenado estaban siendo entrenadas, lo cual no era deseado para este caso. Para corregir esto, se modificó el código moviendo la línea `base_model.trainable = False` justo después de la creación del modelo original. Esto asegura que solo las capas personalizadas agregadas al modelo sean entrenadas, manteniendo las capas preentrenadas inalteradas. Después de realizar este cambio, el modelo se volvió a compilar y a entrenar, y se muestran los resultados actualizados.
+
