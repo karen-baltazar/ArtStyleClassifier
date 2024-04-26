@@ -47,24 +47,36 @@ A continuación, se presentan los resultados obtenidos al evaluar de el modelo e
 
 - **Matriz de Confusión**
 
-<img src="results/test_confusion_matrix.png" width="500" height="400">
+![](results/test_confusion_matrix.png)
 
 - **Informe de Clasificación**
 
-<img src="results/test_report.PNG" width="500" height="200">
+![](results/test_report.PNG)
 
 - **Predicciones**
 
-<img src="results/test_predictions.png" width="700" height="500">
+![](results/test_predictions.png)
 
 - **Loss y accuracy**
 
-<img src="results/test_loss_acc.PNG" width="650" height="40">
+![](results/test_loss_acc.PNG)
 
 - **Interpretación**
 
 El modelo logra una precisión del 53% en identificar imágenes del artista y del 48% para otras imágenes de artistas. Sin embargo, su capacidad para identificar correctamente imágenes de otros artistas es limitada (recall del 24%) [debilidad en su capacidad de generalización y diferenciación entre estilos artísticos]. Por tanto, el modelo necesita mejoras para equilibrar su capacidad de identificar correctamente tanto imágenes del artista como de otros artistas.
 
-### Refinamiento del Modelo
+### Correción del Modelo
 Después de una evaluación inicial del modelo, se identificó que las capas del modelo preentrenado estaban siendo entrenadas, lo cual no era deseado para este caso. Para corregir esto, se modificó el código moviendo la línea `base_model.trainable = False` justo después de la creación del modelo original. Esto asegura que solo las capas personalizadas agregadas al modelo sean entrenadas, manteniendo las capas preentrenadas inalteradas. Después de realizar este cambio, el modelo se volvió a compilar y a entrenar, y se muestran los resultados actualizados.
+
+- **Matriz de Confusión**
+
+![](results/base_train_confusion_matrix.png)
+
+- **Informe de Clasificación**
+
+![](results/base_train_report.PNG)
+
+- **Loss y accuracy**
+
+![](results/base_train_loss_acc.PNG)
 
