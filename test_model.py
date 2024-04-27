@@ -7,6 +7,8 @@ Original file is located at
     https://colab.research.google.com/drive/1aAmsXpw5w1quPkpvs-iJkwDZk-3mJsgk
 
 # **Artist_Style_Identification - Test**
+
+## **Test**
 """
 
 # Commented out IPython magic to ensure Python compatibility.
@@ -24,15 +26,15 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import load_model
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 import seaborn as sns
 
 # Cargar el modelo guardado
-model_path = 'artist_style_model.keras'
+model_path = 'artist_style_base_model.keras'
 loaded_model = load_model(model_path)
 
 # Directorio de prueba
-base_dir = 'dataset'
+base_dir = 'dataset_v1'
 test_dir = os.path.join(base_dir, 'test')
 
 # Configuración del generador de aumento de datos
@@ -66,13 +68,13 @@ def visualize_predictions(test_generator, test_pred_classes):
         plt.subplot(2, 3, i + 1)
 
         # Obtener una imagen del generador de test
-        image, label = test_generator.next()
+        image, label = test_generator[i]
 
         # Mostrar la imagen
         plt.imshow(image[0])
 
         # Configurar el título con la predicción y el valor real
-        title = f'Predicción: {test_pred_classes[i]}, Real: {label[i]}'
+        title = f'Predicción: {test_pred_classes[i]}, Real: {label[0]}'
         plt.title(title)
         plt.axis('off')
 
@@ -103,3 +105,50 @@ print("\nReporte de clasificación (Test):\n", report)
 
 # Visualizar algunas imágenes de test con sus predicciones
 visualize_predictions(test_generator, test_pred_classes)
+
+# Calcular el accuracy para el conjunto de prueba
+test_loss, test_accuracy = loaded_model.evaluate(test_generator)
+print(f"Accuracy del conjunto de prueba: {test_accuracy * 100:.2f}%")
+print("Pérdida durante el prueba:", test_loss)
+
+"""## **Query**"""
+
+# Commented out IPython magic to ensure Python compatibility.
+from google.colab import drive
+
+# Montar Google Drive
+drive.mount('/content/drive')
+
+# %cd "/content/drive/MyDrive/ArtisticStyle/"
+!ls
+
+import os
+from tensorflow.keras.preprocessing import image
+
+# Cargar el modelo guardado
+model_path = 'artist_style_base_model.keras'
+loaded_model = load_model(model_path)
+
+# Directorio de prueba para la query
+img_path = 'query/50.jpg'
+
+# Preprocesamiento de imagen
+img = image.load_img(img_path,  target_size=(224,224))
+img_tensor = image.img_to_array(img)
+print(img_tensor.shape)
+img_tensor = np.expand_dims(img_tensor, axis = 0)
+img_tensor /= 255.
+
+# Predicción
+confidence = loaded_model.predict(img_tensor)
+predict_class = (confidence > 0.5).astype("int32")
+print (confidence)
+print ("class ", predict_class[0][0])
+
+if predict_class[0][0] == 1:
+  print("No artista")
+else:
+  print("Artista")
+
+plt.imshow(img_tensor[0])
+plt.show()
