@@ -41,8 +41,8 @@ El modelo se evaluará utilizando las siguientes métricas:
 - **Recall**: Proporción de verdaderos positivos sobre el total de positivos reales.
 - **F1 Score**: Media armónica entre precisión y recall.
 
-## Resultados de la Evaluación
-### Evaluación inicial
+## Evaluación inicial
+### Resultados de la Evaluación
 A continuación, se presentan los resultados obtenidos al evaluar de el modelo en el conjunto de prueba:
 
 - **Matriz de Confusión**
@@ -70,13 +70,13 @@ Después de una evaluación inicial del modelo, se identificó que las capas del
 
 - **Matriz de Confusión**
 
-![](results/base_train_confusion_matrix.png)
+<img src="results/base_train_confusion_matrix.png" width="500" height="400"><img src="results/base_test_confusion_matrix.png" width="500" height="400">
 
 - **Informe de Clasificación**
 
-![](results/base_train_report.PNG)
+<img src="results/base_train_report.PNG" width="500" height="100"><img src="results/base_test_report.PNG" width="500" height="100">
 
 - **Loss y accuracy**
 
-![](results/base_train_loss_acc.PNG)
+<img src="results/base_train_loss_acc.PNG" width="450" height="40"><img src="results/base_test_loss_acc.PNG" width="450" height="40">
 
