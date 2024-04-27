@@ -20,6 +20,7 @@ drive.mount('/content/drive')
 
 import os
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -27,9 +28,12 @@ from tensorflow.keras.applications import ResNet50
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.models import load_model
+from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger
+from sklearn.metrics import confusion_matrix, classification_report
 
 # Directorios de entrenamiento y validación
-base_dir = 'dataset'
+base_dir = 'dataset_v1'
 train_dir = os.path.join(base_dir,'train')
 val_dir = os.path.join(base_dir, 'validation')
 
@@ -72,34 +76,75 @@ for i in range(9):
 
 plt.show()
 
-# Carga del modelo ResNet50 previamente entrenado
-base_model = ResNet50(weights='imagenet', include_top=False)
+# Creación del modelo original
+# base_model = ResNet50(weights='imagenet', include_top=False)
+# base_model.trainable = False
 
-# Capas de clasificación personalizadas
-model = tf.keras.Sequential()
-model.add(base_model)
-model.add(GlobalAveragePooling2D())
-model.add(Dense(512, activation='relu'))
-model.add(Dense(1, activation='sigmoid'))
-base_model.trainable = False
+# Añadir capas personalizadas
+# model = tf.keras.Sequential()
+# model.add(base_model)
+# model.add(GlobalAveragePooling2D())
+# model.add(Dense(512, activation='relu'))
+# model.add(Dense(1, activation='sigmoid'))
 
 # Compilar el modelo
-model.compile(loss='binary_crossentropy',
-              optimizer=Adam(learning_rate=1e-3),
-              metrics=['acc'])
+# model.compile(loss='binary_crossentropy',
+#               optimizer=Adam(learning_rate=1e-3),
+#               metrics=['acc'])
 
 # Mostrar el resumen del modelo
-model.summary()
+# model.summary()
 
-# Entrenar el modelo
+# Entrenar el modelo original
+# history = model.fit(
+#     train_generator,
+#     epochs=10,
+#     validation_data=val_generator
+# )
+
+# acc = history.history['acc']
+# loss = history.history['loss']
+
+# Guardar el modelo original
+# model.save('artist_style_base_model.keras')
+
+# Cargar el modelo guardado para continuar el entrenamiento
+model = load_model('artist_style_base_model.keras')
+
+# Crear un callback para guardar el mejor modelo
+checkpoint_callback = ModelCheckpoint('artist_style_model_{epoch:02d}.keras',
+                                      save_best_only=True,
+                                      monitor='val_accuracy',
+                                      mode='max')
+
+# Crear callback para guardar el modelo al final del entrenamiento
+final_model_checkpoint = ModelCheckpoint('artist_style_model_final.keras',
+                                         save_weights_only=False,
+                                         verbose=1)
+
+csv_logger = CSVLogger('training.log')
+
+# Continuar entrenando el modelo cargado con más épocas
 history = model.fit(
     train_generator,
-    epochs=10,
-    validation_data=val_generator
+    epochs=20,
+    validation_data=val_generator,
+    callbacks=[checkpoint_callback, final_model_checkpoint, csv_logger]
 )
 
-import seaborn as sns
-from sklearn.metrics import confusion_matrix, classification_report
+acc = history.history['acc']
+loss = history.history['loss']
+
+# Mostrar gráficas de loss y accuracy
+epochs = range(1, len(acc)+1)
+
+plt.figure()
+#subplot(r,c) provide the no. of rows and columns
+f, axarr = plt.subplots(1, 2, figsize=(10, 3))
+axarr[0].plot(epochs,acc,label='train accuracy')
+axarr[0].legend()
+axarr[1].plot(epochs,loss,label='train loss')
+axarr[1].legend()
 
 # Predecir las clases para el conjunto de entrenamiento
 train_pred = model.predict(train_generator)
@@ -125,5 +170,7 @@ report = classification_report(train_generator.classes, train_pred_classes, targ
 # Mostrar el reporte de clasificación
 print("\nReporte de clasificación (Entrenamiento):\n", report)
 
-# Salvar el modelo
-model.save('artist_style_model.keras')
+# Calcular el accuracy para el conjunto de prueba
+train_loss, train_accuracy = model.evaluate(train_generator)
+print(f"Accuracy en entrenamiento: {train_accuracy * 100:.2f}%")
+print("Pérdida durante el entrenamiento:", test_loss)
