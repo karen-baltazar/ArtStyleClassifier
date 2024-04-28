@@ -80,3 +80,15 @@ Después de una evaluación inicial del modelo, se identificó que las capas del
 
 <img src="results/base_train_loss_acc.PNG" width="450" height="40"><img src="results/base_test_loss_acc.PNG" width="450" height="40">
 
+## Refinamiento del Modelo
+Después de evaluar el rendimiento del modelo base, se observó un problema de sobreajuste, donde el modelo mostraba un mejor desempeño en el conjunto de entrenamiento que en el de prueba. Para abordar este problema y mejorar la capacidad de generalización del modelo, se implementaron las siguientes modificaciones.
+
+En primer lugar, se incorporó r**egularización L2** y **dropout con una tasa del 50%** en las capas densas para prevenir así el sobreajuste. Además, se aplicaron **técnicas de aumento de datos**, incluyendo desplazamiento horizontal y vertical, zoom y volteo horizontal, con el fin de mejorar la capacidad del modelo para generalizar a nuevas muestras.
+
+Además, se generó una ***segunda versión* del conjunto de datos** donde se agregaron imágenes adicionales, aumentando así la cantidad de muestras disponibles para el entrenamiento y la prueba del modelo. En esta nueva versión, se conservó la misma distribución previamente mencionada entre entrenamiento, prueba y validación, resultando que cada elemento de clasificación quedase con la siguiente división de imágenes:
+
+- Conjunto de Entrenamiento: 736 imágenes
+- Conjunto de Validación: 184 imágenes
+- Conjunto de Prueba: 230 imágenes
+
+Finalmente, se utilizaron **callbacks durante el entrenamiento** para guardar el modelo actualizado después de cada época y seleccionar el mejor modelo basado en la precisión en el conjunto de validación.
