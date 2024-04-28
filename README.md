@@ -92,3 +92,24 @@ Además, se generó una ***segunda versión* del conjunto de datos** donde se ag
 - Conjunto de Prueba: 230 imágenes
 
 Finalmente, se utilizaron **callbacks durante el entrenamiento** para guardar el modelo actualizado después de cada época y seleccionar el mejor modelo basado en la precisión en el conjunto de validación.
+
+## Resultados del Modelo y Comparación
+### Resultados del Modelo Modificado
+A continuación, se presentan los resultados obtenidos con el modelo modificado:
+- **Matriz de Confusión**
+
+<img src="results/best_model/train_confusion_matrix.png" width="500" height="400"><img src="results/best_model/test_confusion_matrix.png" width="500" height="400">
+
+- **Informe de Clasificación**
+
+<img src="results/best_model/train_report.PNG" width="500" height="100"><img src="results/best_model/test_report.PNG" width="500" height="100">
+
+- **Loss y accuracy**
+<img src="results/best_model/train_loss_acc_history.png" width="800" height="300">
+
+<img src="results/best_model/train_loss_acc.PNG" width="450" height="40"><img src="results/best_model/test_loss_acc.PNG" width="450" height="40">
+
+### Comparación con el Modelo Base
+El modelo modificado ha demostrado un rendimiento mejorado en comparación con el modelo base. En el conjunto de entrenamiento, el modelo modificado alcanzó una precisión (**accuracy**) del 66.92% con una pérdida de 0.67, mientras que el modelo base logró una precisión (**accuracy**) del 71.69% con una pérdida de 0.56. Sin embargo, en el conjunto de prueba, el modelo modificado mostró una precisión (**accuracy**) del 70.43%, superando al modelo base que alcanzó una precisión (**accuracy**) del 66.12%. Estos resultados indican una mejora en la capacidad de generalización del modelo, ya que logra una precisión más alta en un conjunto de datos no visto previamente. Aunque el modelo base tuvo un rendimiento ligeramente superior en el conjunto de entrenamiento, el modelo modificado demostró una mejor capacidad para generalizar a datos nuevos.
+
+Finalmente, a pesar de las mejoras observadas en la precisión del modelo, aún se tienen que superar ciertos desafíos en el modelo para la correcta clasificación de las imágenes, especialmente en la identificación y la distinción entre las categorías de avogado6 y no artista. El modelo sigue mostrando dificultades para discernir entre obras del artista avogado6 y aquellas que no pertenecen a esta categoría. Para abordar estos desafíos, se podría considerar realizar ajustes adicionales en los hiperparámetros del modelo y explorar otras arquitecturas. Sin embargo, no se tiene intenciones de integrar esta ideas al código existente en este momento.
