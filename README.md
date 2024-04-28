@@ -47,19 +47,19 @@ A continuación, se presentan los resultados obtenidos al evaluar de el modelo e
 
 - **Matriz de Confusión**
 
-![](results/test_confusion_matrix.png)
+![](results/old_model/test_confusion_matrix.png)
 
 - **Informe de Clasificación**
 
-![](results/test_report.PNG)
+![](results/old_model/test_report.PNG)
 
 - **Predicciones**
 
-![](results/test_predictions.png)
+![](results/old_model/test_predictions.png)
 
 - **Loss y accuracy**
 
-![](results/test_loss_acc.PNG)
+![](results/old_model/test_loss_acc.PNG)
 
 - **Interpretación**
 
@@ -70,15 +70,15 @@ Después de una evaluación inicial del modelo, se identificó que las capas del
 
 - **Matriz de Confusión**
 
-<img src="results/base_train_confusion_matrix.png" width="500" height="400"><img src="results/base_test_confusion_matrix.png" width="500" height="400">
+<img src="results/base_model/train_confusion_matrix.png" width="500" height="400"><img src="results/base_model/test_confusion_matrix.png" width="500" height="400">
 
 - **Informe de Clasificación**
 
-<img src="results/base_train_report.PNG" width="500" height="100"><img src="results/base_test_report.PNG" width="500" height="100">
+<img src="results/base_model/train_report.PNG" width="500" height="100"><img src="results/base_model/test_report.PNG" width="500" height="100">
 
 - **Loss y accuracy**
 
-<img src="results/base_train_loss_acc.PNG" width="450" height="40"><img src="results/base_test_loss_acc.PNG" width="450" height="40">
+<img src="results/base_model/train_loss_acc.PNG" width="450" height="40"><img src="results/base_model/test_loss_acc.PNG" width="450" height="40">
 
 ## Refinamiento del Modelo
 Después de evaluar el rendimiento del modelo base, se observó un problema de sobreajuste, donde el modelo mostraba un mejor desempeño en el conjunto de entrenamiento que en el de prueba. Para abordar este problema y mejorar la capacidad de generalización del modelo, se implementaron las siguientes modificaciones.
