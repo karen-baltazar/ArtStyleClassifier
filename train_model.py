@@ -28,12 +28,14 @@ from tensorflow.keras.applications import ResNet50
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.models import load_model
+from tensorflow.keras.regularizers import l2
+from tensorflow.keras.layers import Dropout
 from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger
+from tensorflow.keras.models import load_model
 from sklearn.metrics import confusion_matrix, classification_report
 
 # Directorios de entrenamiento y validación
-base_dir = 'dataset_v1'
+base_dir = 'dataset_v2'
 train_dir = os.path.join(base_dir,'train')
 val_dir = os.path.join(base_dir, 'validation')
 
@@ -41,10 +43,11 @@ val_dir = os.path.join(base_dir, 'validation')
 train_datagen = ImageDataGenerator(
     rescale=1./255, # Escalamiento: Ajustar valores de píxeles a [0, 1]
     rotation_range=20,
-    # width_shift_range=0.2,
-    # height_shift_range=0.2,
-    # zoom_range=0.2,
-    horizontal_flip=True
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    fill_mode='nearest'
 )
 
 val_datagen = ImageDataGenerator(rescale=1./255)
@@ -77,59 +80,44 @@ for i in range(9):
 plt.show()
 
 # Creación del modelo original
-# base_model = ResNet50(weights='imagenet', include_top=False)
-# base_model.trainable = False
+base_model = ResNet50(weights='imagenet', include_top=False)
+base_model.trainable = False
 
 # Añadir capas personalizadas
-# model = tf.keras.Sequential()
-# model.add(base_model)
-# model.add(GlobalAveragePooling2D())
-# model.add(Dense(512, activation='relu'))
-# model.add(Dense(1, activation='sigmoid'))
+model = tf.keras.Sequential()
+model.add(base_model)
+model.add(GlobalAveragePooling2D())
+model.add(Dense(512, activation='relu', kernel_regularizer=l2(0.01)))
+model.add(Dropout(0.5))
+model.add(Dense(1, activation='sigmoid'))
 
 # Compilar el modelo
-# model.compile(loss='binary_crossentropy',
-#               optimizer=Adam(learning_rate=1e-3),
-#               metrics=['acc'])
+model.compile(loss='binary_crossentropy',
+              optimizer=Adam(learning_rate=1e-3),
+              metrics=['acc'])
 
 # Mostrar el resumen del modelo
-# model.summary()
-
-# Entrenar el modelo original
-# history = model.fit(
-#     train_generator,
-#     epochs=10,
-#     validation_data=val_generator
-# )
-
-# acc = history.history['acc']
-# loss = history.history['loss']
-
-# Guardar el modelo original
-# model.save('artist_style_base_model.keras')
-
-# Cargar el modelo guardado para continuar el entrenamiento
-model = load_model('artist_style_base_model.keras')
+model.summary()
 
 # Crear un callback para guardar el mejor modelo
-checkpoint_callback = ModelCheckpoint('artist_style_model_{epoch:02d}.keras',
+best_model_callback = ModelCheckpoint('best_artist_style_model.keras',
                                       save_best_only=True,
-                                      monitor='val_accuracy',
+                                      monitor='val_acc',
                                       mode='max')
 
 # Crear callback para guardar el modelo al final del entrenamiento
-final_model_checkpoint = ModelCheckpoint('artist_style_model_final.keras',
+updated_model_checkpoint = ModelCheckpoint('updated_artist_style_model.keras',
                                          save_weights_only=False,
                                          verbose=1)
 
 csv_logger = CSVLogger('training.log')
 
-# Continuar entrenando el modelo cargado con más épocas
+# Entrenar el modelo
 history = model.fit(
     train_generator,
     epochs=20,
     validation_data=val_generator,
-    callbacks=[checkpoint_callback, final_model_checkpoint, csv_logger]
+    callbacks=[best_model_callback, updated_model_checkpoint, csv_logger]
 )
 
 acc = history.history['acc']
@@ -145,6 +133,10 @@ axarr[0].plot(epochs,acc,label='train accuracy')
 axarr[0].legend()
 axarr[1].plot(epochs,loss,label='train loss')
 axarr[1].legend()
+
+# Cargar el modelo guardado
+model_path = 'best_artist_style_model.keras' # Cambiar según sea necesario
+model = load_model(model_path)
 
 # Predecir las clases para el conjunto de entrenamiento
 train_pred = model.predict(train_generator)
@@ -173,4 +165,4 @@ print("\nReporte de clasificación (Entrenamiento):\n", report)
 # Calcular el accuracy para el conjunto de prueba
 train_loss, train_accuracy = model.evaluate(train_generator)
 print(f"Accuracy en entrenamiento: {train_accuracy * 100:.2f}%")
-print("Pérdida durante el entrenamiento:", test_loss)
+print("Pérdida durante el entrenamiento:", train_loss)

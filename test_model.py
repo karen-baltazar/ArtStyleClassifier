@@ -30,11 +30,11 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 import seaborn as sns
 
 # Cargar el modelo guardado
-model_path = 'artist_style_base_model.keras'
+model_path = 'best_artist_style_model.keras'
 loaded_model = load_model(model_path)
 
 # Directorio de prueba
-base_dir = 'dataset_v1'
+base_dir = 'dataset_v2'
 test_dir = os.path.join(base_dir, 'test')
 
 # Configuración del generador de aumento de datos
@@ -84,6 +84,7 @@ def visualize_predictions(test_generator, test_pred_classes):
 # Predecir clases para el conjunto de test
 test_pred = loaded_model.predict(test_generator)
 test_pred_classes = np.round(test_pred).flatten()
+#test_pred_classes = (test_pred > 0.33).astype(int).flatten()  # Cambia 0.33 al umbral deseado
 
 # Obtener las métricas para el conjunto de test
 conf_matrix = confusion_matrix(test_generator.classes, test_pred_classes)
@@ -126,7 +127,7 @@ import os
 from tensorflow.keras.preprocessing import image
 
 # Cargar el modelo guardado
-model_path = 'artist_style_base_model.keras'
+model_path = 'best_artist_style_model.keras'
 loaded_model = load_model(model_path)
 
 # Directorio de prueba para la query
