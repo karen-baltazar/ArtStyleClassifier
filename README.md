@@ -1,59 +1,59 @@
 # Artist Identification
-Este proyecto tiene como objetivo desarrollar un modelo de aprendizaje automático para identificar y clasificar estilos artísticos en ilustraciones (imágenes digitales). El enfoque principal es identificar el estilo particular de un artista (**@avogado6**) a través de ilustraciones donde haya personas.
+This project aims to develop a machine learning model to identify and classify artistic styles in illustrations (digital images). The main focus is to identify the particular style of an artist (**@avogado6**) through illustrations featuring people.
 
-## Información del Alumno
-- **Nombre:** Ana Karen López Baltazar
-- **Matrícula:** A01707750
+## Student Information
+- **Name:** Ana Karen López Baltazar
+- **ID:** A01707750
 
-## Conjunto de datos
-### Origen del Conjunto de Datos
-El conjunto de datos utilizado en este proyecto proviene de tres fuentes principales:
+## Dataset
+### Dataset Origin
+The dataset used in this project comes from three main sources:
 
-1. **@avogado6**: Ilustraciones del artista cuyo estilo se busca identificar. Imágenes recuperadas de su [página principal](https://www.avogado6.com/).
-2. **@FutarinoTaiyou**: Ilustraciones de otro artista con un estilo similar. Imágenes recuperadas de su cuenta de [Twitter X](https://twitter.com/futarinotaiyou?lang=es).
-3. **Kaggle Dataset**: Un conjunto de imágenes adicional obtenido de un dataset en Kaggle ([Pixiv Top Daily Illustration 2020](https://www.kaggle.com/datasets/stevenevan99/pixiv-top-daily-illustration-2020)) para complementar el conjunto de imágenes.
+1. **@avogado6**: Illustrations from the artist whose style is being identified. Images retrieved from their [homepage](https://www.avogado6.com/).
+2. **@FutarinoTaiyou**: Illustrations from another artist with a similar style. Images retrieved from their [Twitter account](https://twitter.com/futarinotaiyou?lang=es).
+3. **Kaggle Dataset**: An additional image set obtained from a Kaggle dataset ([Pixiv Top Daily Illustration 2020](https://www.kaggle.com/datasets/stevenevan99/pixiv-top-daily-illustration-2020)) to complement the image collection.
 
-### Selección de Imágenes
-Las imágenes seleccionadas para este proyecto se centran en ilustraciones de personas realizadas por el artista principal. Se han incluido imágenes que representan diferentes ángulos y perspectivas de las personas, incluyendo vistas de frente, de lado y parcialmente ocultas.
+### Image Selection
+The images selected for this project focus on illustrations of people created by the primary artist. Images representing different angles and perspectives of people, including front, side, and partially obscured views, have been included.
 
-### División del Conjunto de Datos
-El conjunto de datos se dividió en conjuntos de entrenamiento y prueba de manera aleatoria. Se asignó el 80% de las imágenes para el conjunto de entrenamiento (del cual a su vez se utilizó el 20% para la validación del modelo) y el 20% restante para el conjunto de prueba, asegurando una distribución equitativa de las imágenes entre ambos conjuntos.
+### Dataset Split
+The dataset was split into training and test sets randomly. 80% of the images were assigned to the training set (from which 20% were further used for model validation), and the remaining 20% were allocated to the test set, ensuring an equitable distribution of images between both sets.
 
-- Conjunto de Entrenamiento: 416 imágenes
-- Conjunto de Validación: 104 imágenes
-- Conjunto de Prueba: 130 imágenes
-  
-Para acceder al conjunto de datos completo utilizado en este proyecto, puedes visitar la siguiente liga de [Drive](https://drive.google.com/drive/folders/1CXb4dSFhRqj9K56XZ_WWbyvf4POauS17?usp=sharing)*.
+- Training Set: 416 images
+- Validation Set: 104 images
+- Test Set: 130 images
 
-***Nota:** La presente división corresponde únicamente al la "*primera versión*" del dataset. La "*segunda versión*" se explica más adelante en el *Refinamiento del modelo*.
+To access the complete dataset used in this project, you can visit the following [Drive link](https://drive.google.com/drive/folders/1CXb4dSFhRqj9K56XZ_WWbyvf4POauS17?usp=sharing).
 
-### Preprocesamiento de Imágenes
-Antes de alimentar los datos de imágenes al modelo de red neuronal, es esencial realizar un preprocesamiento adecuado para garantizar un mejor rendimiento de entrenamiento y generalización del modelo. En este proceso, las imágenes se redimensionaron a un tamaño uniforme de 224x224 píxeles y los valores de píxeles se escalonaron al rango [0, 1] dividiendo cada valor de píxel por 255.0. Además, se aplicaron técnicas de aumento de datos al conjunto de entrenamiento para incrementar artificialmente el tamaño del conjunto de datos y mejorar la capacidad del modelo para generalizar a datos no vistos. 
+***Note:** This division corresponds solely to the "*first version*" of the dataset. The "*second version*" is explained later in the *Model Refinement*.
 
-## Implementación del Modelo
-Para este proyecto, el modelo implementado se insipiró en el artículo ["Artist Identification with Convolutional Neural Networks"](https://www.semanticscholar.org/paper/Artist-Identification-with-Convolutional-Neural-Viswanathan-Stanford/dafe87bf57c4413d769de46af78f7e4305087838), donde se propone un enfoque similar para identificar estilos artísticos. Se adaptó una arquitectura ResNet-18 para esta tarea específica, modificando las capas finales para realizar una clasificación binaria entre las imágenes del artista objetivo y las de otros artistas.
+### Image Preprocessing
+Before feeding image data into the neural network model, it's essential to perform proper preprocessing to ensure better training performance and model generalization. In this process, images were resized to a uniform size of 224x224 pixels, and pixel values were scaled to the range [0, 1] by dividing each pixel value by 255.0. Additionally, data augmentation techniques were applied to the training set to artificially increase the dataset's size and improve the model's ability to generalize to unseen data.
 
-## Métricas de Evaluación del Modelo
-El modelo se evaluará utilizando las siguientes métricas:
-- **Accuracy**: Proporción de predicciones correctas sobre el total de predicciones realizadas.
-- **Matriz de Confusión**: Tabla que muestra las predicciones versus las etiquetas verdaderas.
-- **Precision**: Proporción de verdaderos positivos sobre el total de predicciones positivas.
-- **Recall**: Proporción de verdaderos positivos sobre el total de positivos reales.
-- **F1 Score**: Media armónica entre precisión y recall.
+## Model Implementation
+For this project, the implemented model was inspired by the article ["Artist Identification with Convolutional Neural Networks"](https://www.semanticscholar.org/paper/Artist-Identification-with-Convolutional-Neural-Viswanathan-Stanford/dafe87bf57c4413d769de46af78f7e4305087838), which proposes a similar approach to identify artistic styles. A ResNet-18 architecture was adapted for this specific task, modifying the final layers to perform binary classification between images of the target artist and those of other artists.
 
-## Evaluación inicial
-### Resultados de la Evaluación
-A continuación, se presentan los resultados obtenidos al evaluar de el modelo en el conjunto de prueba:
+## Model Evaluation Metrics
+The model will be evaluated using the following metrics:
+- **Accuracy**: Proportion of correct predictions over the total predictions made.
+- **Confusion Matrix**: Table showing predictions versus true labels.
+- **Precision**: Proportion of true positives over the total positive predictions.
+- **Recall**: Proportion of true positives over the total actual positives.
+- **F1 Score**: Harmonic mean between precision and recall.
 
-- **Matriz de Confusión**
+## Initial Evaluation
+### Evaluation Results
+Below are the results obtained when evaluating the model on the test set:
+
+- **Confusion Matrix**
 
 ![](results/old_model/test_confusion_matrix.png)
 
-- **Informe de Clasificación**
+- **Classification Report**
 
 ![](results/old_model/test_report.PNG)
 
-- **Predicciones**
+- **Predictions**
 
 ![](results/old_model/test_predictions.png)
 
@@ -61,18 +61,18 @@ A continuación, se presentan los resultados obtenidos al evaluar de el modelo e
 
 ![](results/old_model/test_loss_acc.PNG)
 
-- **Interpretación**
+- **Interpretation**
 
-El modelo logra una precisión del 53% en identificar imágenes del artista y del 48% para otras imágenes de artistas. Sin embargo, su capacidad para identificar correctamente imágenes de otros artistas es limitada (recall del 24%) [debilidad en su capacidad de generalización y diferenciación entre estilos artísticos]. Por tanto, el modelo necesita mejoras para equilibrar su capacidad de identificar correctamente tanto imágenes del artista como de otros artistas.
+The model achieves an accuracy of 53% in identifying images of the artist and 48% for images of other artists. However, its ability to correctly identify images of other artists is limited (recall of 24%) [weakness in its generalization capacity and differentiation between artistic styles]. Therefore, the model needs improvements to balance its ability to correctly identify both images of the artist and other artists.
 
-### Correción del Modelo
-Después de una evaluación inicial del modelo, se identificó que las capas del modelo preentrenado estaban siendo entrenadas, lo cual no era deseado para este caso. Para corregir esto, se modificó el código moviendo la línea `base_model.trainable = False` justo después de la creación del modelo original. Esto asegura que solo las capas personalizadas agregadas al modelo sean entrenadas, manteniendo las capas preentrenadas inalteradas. Después de realizar este cambio, el modelo se volvió a compilar y a entrenar, y se muestran los resultados actualizados.
+### Model Correction
+After an initial evaluation of the model, it was identified that the layers of the pretrained model were being trained, which was not desired for this case. To correct this, the code was modified by moving the line `base_model.trainable = False` just after the creation of the original model. This ensures that only the custom layers added to the model are trained, keeping the pretrained layers unchanged. After making this change, the model was recompiled and trained, and the updated results are shown.
 
-- **Matriz de Confusión**
+- **Confusion Matrix**
 
 <img src="results/base_model/train_confusion_matrix.png" width="500" height="400"><img src="results/base_model/test_confusion_matrix.png" width="500" height="400">
 
-- **Informe de Clasificación**
+- **Classification Report**
 
 <img src="results/base_model/train_report.PNG" width="500" height="100"><img src="results/base_model/test_report.PNG" width="500" height="100">
 
@@ -80,27 +80,27 @@ Después de una evaluación inicial del modelo, se identificó que las capas del
 
 <img src="results/base_model/train_loss_acc.PNG" width="450" height="40"><img src="results/base_model/test_loss_acc.PNG" width="450" height="40">
 
-## Refinamiento del Modelo
-Después de evaluar el rendimiento del modelo base, se observó un problema de sobreajuste, donde el modelo mostraba un mejor desempeño en el conjunto de entrenamiento que en el de prueba. Para abordar este problema y mejorar la capacidad de generalización del modelo, se implementaron las siguientes modificaciones.
+## Model Refinement
+After evaluating the base model's performance, an overfitting problem was observed, where the model showed better performance on the training set than on the test set. To address this issue and improve the model's generalization ability, the following modifications were implemented.
 
-En primer lugar, se incorporó r**egularización L2** y **dropout con una tasa del 50%** en las capas densas para prevenir así el sobreajuste. Además, se aplicaron **técnicas de aumento de datos**, incluyendo desplazamiento horizontal y vertical, zoom y volteo horizontal, con el fin de mejorar la capacidad del modelo para generalizar a nuevas muestras.
+First, **L2 regularization** and **dropout with a 50% rate** were incorporated into the dense layers to prevent overfitting. Additionally, **data augmentation techniques** were applied, including horizontal and vertical shifting, zooming, and horizontal flipping, to enhance the model's ability to generalize to new samples.
 
-Además, se generó una ***segunda versión* del conjunto de datos** donde se agregaron imágenes adicionales, aumentando así la cantidad de muestras disponibles para el entrenamiento y la prueba del modelo. En esta nueva versión, se conservó la misma distribución previamente mencionada entre entrenamiento, prueba y validación, resultando que cada elemento de clasificación quedase con la siguiente división de imágenes:
+Furthermore, a ***second version* of the dataset** was generated, where additional images were added, thus increasing the number of samples available for model training and testing. In this new version, the same distribution previously mentioned between training, testing, and validation was maintained, resulting in each classification element having the following image distribution:
 
-- Conjunto de Entrenamiento: 736 imágenes
-- Conjunto de Validación: 184 imágenes
-- Conjunto de Prueba: 230 imágenes
+- Training Set: 736 images
+- Validation Set: 184 images
+- Test Set: 230 images
 
-Finalmente, se utilizaron **callbacks durante el entrenamiento** para guardar el modelo actualizado después de cada época y seleccionar el mejor modelo basado en la precisión en el conjunto de validación.
+Finally, **callbacks were used during training** to save the updated model after each epoch and select the best model based on accuracy on the validation set.
 
-## Resultados del Modelo y Comparación
-### Resultados del Modelo Modificado
-A continuación, se presentan los resultados obtenidos con el modelo modificado:
-- **Matriz de Confusión**
+## Model Results and Comparison
+### Modified Model Results
+Below are the results obtained with the modified model:
+- **Confusion Matrix**
 
 <img src="results/best_model/train_confusion_matrix.png" width="500" height="400"><img src="results/best_model/test_confusion_matrix.png" width="500" height="400">
 
-- **Informe de Clasificación**
+- **Classification Report**
 
 <img src="results/best_model/train_report.PNG" width="500" height="100"><img src="results/best_model/test_report.PNG" width="500" height="100">
 
@@ -109,7 +109,12 @@ A continuación, se presentan los resultados obtenidos con el modelo modificado:
 
 <img src="results/best_model/train_loss_acc.PNG" width="450" height="40"><img src="results/best_model/test_loss_acc.PNG" width="450" height="40">
 
-### Comparación con el Modelo Base
-El modelo modificado ha demostrado un rendimiento mejorado en comparación con el modelo base. En el conjunto de entrenamiento, el modelo modificado alcanzó una precisión (**accuracy**) del 66.92% con una pérdida de 0.67, mientras que el modelo base logró una precisión (**accuracy**) del 71.69% con una pérdida de 0.56. Sin embargo, en el conjunto de prueba, el modelo modificado mostró una precisión (**accuracy**) del 70.43%, superando al modelo base que alcanzó una precisión (**accuracy**) del 66.12%. Estos resultados indican una mejora en la capacidad de generalización del modelo, ya que logra una precisión más alta en un conjunto de datos no visto previamente. Aunque el modelo base tuvo un rendimiento ligeramente superior en el conjunto de entrenamiento, el modelo modificado demostró una mejor capacidad para generalizar a datos nuevos.
+### Comparison with Base Model
+The modified model has demonstrated improved performance compared to the base model. In the training set, the modified model achieved an accuracy of 66.92% with a loss of 0.67, while the base model achieved an accuracy of 71.69% with a loss of 0.56. However, in the test set, the modified model showed an accuracy of 70.43%, surpassing the base model that achieved an accuracy of 66.12%. These results indicate an improvement in the model's generalization ability, as it achieves higher accuracy on a previously unseen dataset. Although the base model had slightly superior performance in the training set, the modified model demonstrated better ability to generalize to new data.
 
-Finalmente, a pesar de las mejoras observadas en la precisión del modelo, aún se tienen que superar ciertos desafíos en el modelo para la correcta clasificación de las imágenes, especialmente en la identificación y la distinción entre las categorías de avogado6 y no artista. El modelo sigue mostrando dificultades para discernir entre obras del artista avogado6 y aquellas que no pertenecen a esta categoría. Para abordar estos desafíos, se podría considerar realizar ajustes adicionales en los hiperparámetros del modelo y explorar otras arquitecturas. Sin embargo, no se tiene intenciones de integrar esta ideas al código existente en este momento.
+Finally, despite the improvements observed in the model's accuracy, there are still challenges to overcome in the model for the correct classification of images, especially in the identification and distinction between the avogado6 and non-artist categories. The model continues to show difficulties in discerning between avogado6's artworks and those not belonging to this category. To address these challenges, additional adjustments to the model's hyperparameters and exploration of other architectures could be considered. However, there are no intentions to integrate these ideas into the existing code at this time.
+
+
+
+
+
